@@ -77,13 +77,13 @@ def do_update(
     # Get a clone of the QuerySet so that the cache doesn't bloat up
     # in memory. Useful when reindexing large amounts of data.
     # the query must be ordered by PK in order to get the max PK in each batch
-    small_cache_qs = qs.all().order_by("pk")
+    small_cache_qs = qs.all().order_by("id")
 
     # If we got the max seen PK from last batch, use it to restrict the qs
     # to values above; this optimises the query for Postgres as not to
     # devolve into multi-second run time at large offsets.
     if last_max_pk is not None:
-        current_qs = small_cache_qs.filter(pk__gt=last_max_pk)[: end - start]
+        current_qs = small_cache_qs.filter(id__gt=last_max_pk)[: end - start]
     else:
         current_qs = small_cache_qs[start:end]
 
@@ -91,7 +91,7 @@ def do_update(
     max_pk = None
     current_qs = list(current_qs)
     if current_qs:
-        max_pk = current_qs[-1].pk
+        max_pk = current_qs[-1].id
 
     is_parent_process = hasattr(os, "getppid") and os.getpid() == os.getppid()
 
