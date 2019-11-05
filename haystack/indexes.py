@@ -212,7 +212,7 @@ class SearchIndex(with_metaclass(DeclarativeMetaclass, threading.local)):
 
         # `.select_related()` seems like a good idea here but can fail on
         # nullable `ForeignKey` as well as what seems like other cases.
-        return index_qs.filter(**extra_lookup_kwargs).order_by(model._meta.pk.name)
+        return index_qs.filter(**extra_lookup_kwargs).order_by("id")
 
     def prepare(self, obj):
         """
