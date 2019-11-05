@@ -11,6 +11,7 @@ except ImportError:
     use_setuptools()
     from setuptools import setup
 
+
 install_requires = ["Django>=2.2"]
 
 tests_require = [
@@ -25,7 +26,7 @@ tests_require = [
 
 setup(
     name="django-haystack",
-    use_scm_version=True,
+    version=VERSION,
     description="Pluggable search for Django.",
     author="Daniel Lindsley",
     author_email="daniel@toastdriven.com",
