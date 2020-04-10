@@ -11,7 +11,7 @@ except ImportError:
     use_setuptools()
     from setuptools import setup
 
-
+VERSION=3.0.0 
 install_requires = ["Django>=2.2"]
 
 tests_require = [
